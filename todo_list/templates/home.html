@@ -21,14 +21,23 @@
         {% for task in tasks %}
             {% if task.completed %}
                 <tr class="table-success">
-                    <td class="striker"><a href="{% url 'edit' task.id %}" class="link-dark">{{ task.item }}</a></td>
+                    <td class="striker text-muted">{{ task.item }}</td>
+                    
+                    <td style="text-align:center">
+                        <a href="{% url 'edit' task.id %}" class="btn btn-outline-secondary btn-sm">Edit</a>
+                    </td>
+                    
                     <td style="text-align:center"><a href="{% url 'uncross' task.id %}">Uncross</a></td>
                     <td style="text-align:center"><a href="{% url 'delete' task.id %}" class="link-danger">Delete</a></td>
-                    
                 </tr>
             {% else %}
                 <tr>
-                    <td><a href="{% url 'edit' task.id %}" class="link-dark">{{ task.item }}</a></td>
+                    <td>{{ task.item }}</td>
+                    
+                    <td style="text-align:center">
+                        <a href="{% url 'edit' task.id %}" class="btn btn-outline-secondary btn-sm">Edit</a>
+                    </td>
+                    
                     <td style="text-align:center"><a href="{% url 'cross_off' task.id %}">Cross Off</a></td>
                     <td style="text-align:center"><a href="{% url 'delete' task.id %}" class="link-danger">Delete</a></td>
                 </tr>
