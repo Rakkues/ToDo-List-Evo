@@ -32,32 +32,33 @@ def delete(request, list_id):
 
 
 def cross_off(request, list_id):
- 	task = List.objects.get(pk=list_id)
- 	task.completed = True
- 	task.save()
- 	return redirect('home')	
+    task = List.objects.get(pk=list_id)
+    task.completed = True
+    task.save()
+    return redirect('home')
+
 
 def uncross(request, list_id):
- 	task = List.objects.get(pk=list_id)
- 	task.completed = False
- 	task.save()
- 	return redirect('home')	
+    task = List.objects.get(pk=list_id)
+    task.completed = False
+    task.save()
+    return redirect('home')
 
 
 def edit(request, list_id):
-	if request.method == 'POST':
-		task = List.objects.get(pk=list_id)
-
-		form = ListForm(request.POST or None, instance=task)
+    if request.method == 'POST':
+        task = List.objects.get(pk=list_id)
+        form = ListForm(request.POST or None, instance=task)
         
-		if form.is_valid():
-			form.save()
-			messages.success(request, ('Task Has Been Edited!'))
-			return redirect('home')
+        if form.is_valid():
+            form.save()
+            messages.success(request, ('Task Has Been Edited!'))
+            return redirect('home')
 
-	else:
-		task = List.objects.get(pk=list_id)
-		return render(request, 'edit.html', {'task': task})
+    else:
+        task = List.objects.get(pk=list_id)
+        form = ListForm(instance=task) # Added to pre-populate form values
+        return render(request, 'edit.html', {'task': task, 'form': form}) # Added 'form' to context
     
     
 

@@ -7,12 +7,16 @@
 		
     <form class="form-inline my-2 my-lg-0" method="POST">
         {% csrf_token %}
-        <input class="form-control mr-sm-2" type="search" placeholder="{{ task.item }}" 
-        value="{{ task.item }}" aria-label="Search" name="item">
+        
+        <input class="form-control mr-sm-2" type="text" placeholder="Edit item" 
+        value="{{ task.item }}" aria-label="Edit Item" name="item">
       
-        <br/>
-
-        <input type="hidden" value="{{ task.completed }}" name="completed">
+        <div class="form-check mr-sm-2">
+            <input class="form-check-input" type="checkbox" name="completed" id="completedCheckbox" {% if task.completed %}checked{% endif %}>
+            <label class="form-check-label" campaigners for="completedCheckbox">
+                Completed
+            </label>
+        </div>
 
         <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Edit Item</button>
     </form>
