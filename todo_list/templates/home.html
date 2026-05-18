@@ -17,23 +17,75 @@
 
     {% if tasks %}
     
-    <table class="table table-bordered">
-        {% for task in tasks %}
-            {% if task.completed %}
-                <tr class="table-success">
-                    <td class="striker"><a href="{% url 'edit' task.id %}" class="link-dark">{{ task.item }}</a></td>
-                    <td style="text-align:center"><a href="{% url 'uncross' task.id %}">Uncross</a></td>
-                    <td style="text-align:center"><a href="{% url 'delete' task.id %}" class="link-danger">Delete</a></td>
-                    
-                </tr>
-            {% else %}
-                <tr>
-                    <td><a href="{% url 'edit' task.id %}" class="link-dark">{{ task.item }}</a></td>
-                    <td style="text-align:center"><a href="{% url 'cross_off' task.id %}">Cross Off</a></td>
-                    <td style="text-align:center"><a href="{% url 'delete' task.id %}" class="link-danger">Delete</a></td>
-                </tr>
-            {% endif %}
-        {% endfor %} 
+    <table class="table table-bordered table-hover align-middle shadow-sm">
+        <thead class="table-light">
+            <tr>
+                <th scope="col" style="width: 35%;">Task Details</th>
+                <th scope="col" style="text-align:center; width: 12%;">Priority</th>
+                <th scope="col" style="text-align:center; width: 18%;">Due Date</th>
+                <th scope="col" style="text-align:center; width: 12%;">Duration</th>
+                <th scope="col" style="text-align:center; width: 8%;">Edit</th>
+                <th scope="col" style="text-align:center; width: 8%;">Status</th>
+                <th scope="col" style="text-align:center; width: 7%;">Remove</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks %}
+                {% if task.completed %}
+                    <tr class="table-success text-muted">
+                        <td>
+                            <span class="striker">{{ task.item }}</span>
+                            {% if task.side_note %}
+                                <div class="small text-wrap text-muted mt-1" style="font-style: italic;">
+                                    📝 {{ task.side_note }}
+                                </div>
+                            {% endif %}
+                        </td>
+                        <td style="text-align:center">
+                            <span style="display: inline-block; width: 12px; height: 12px; border-radius: 50%; background-color: #6c757d; opacity: 0.5;" title="Completed (Was {{ task.priority }})"></span>
+                        </td>
+                        <td style="text-align:center" class="small">
+                            {% if task.due_date %}⏰ {{ task.due_date|date:"M d, Y h:i A" }}{% else %}-{% endif %}
+                        </td>
+                        <td style="text-align:center" class="small">
+                            {% if task.time_taken %}{{ task.time_taken }}{% else %}-{% endif %}
+                        </td>
+                        <td style="text-align:center"><a href="{% url 'edit' task.id %}" class="btn btn-sm btn-outline-secondary">Edit</a></td>
+                        <td style="text-align:center"><a href="{% url 'uncross' task.id %}" class="btn btn-sm btn-outline-dark">Uncross</a></td>
+                        <td style="text-align:center"><a href="{% url 'delete' task.id %}" class="btn btn-sm btn-outline-danger">Delete</a></td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td>
+                            <strong class="text-dark">{{ task.item }}</strong>
+                            {% if task.side_note %}
+                                <div class="small text-wrap text-secondary mt-1">
+                                    📝 {{ task.side_note }}
+                                </div>
+                            {% endif %}
+                        </td>
+                        <td style="text-align:center">
+                            {% if task.priority == 'High' or task.priority == '🔴 High' %}
+                                <span style="display: inline-block; width: 12px; height: 12px; border-radius: 50%; background-color: #dc3545;" title="High Priority"></span>
+                            {% elif task.priority == 'Medium' or task.priority == '🟡 Medium' %}
+                                <span style="display: inline-block; width: 12px; height: 12px; border-radius: 50%; background-color: #ffc107;" title="Medium Priority"></span>
+                            {% else %}
+                                <span style="display: inline-block; width: 12px; height: 12px; border-radius: 50%; background-color: #0dcaf0;" title="Low Priority"></span>
+                            {% endif %}
+                        </td>
+                        <td style="text-align:center" class="small fw-semibold">
+                            {% if task.due_date %}⏰ {{ task.due_date|date:"M d, Y h:i A" }}{% else %}<span class="text-muted">-</span>{% endif %}
+                        </td>
+                        <td style="text-align:center" class="small">
+                            {% if task.time_taken %}{{ task.time_taken }}{% else %}<span class="text-muted">-</span>{% endif %}
+                        </td>
+                        <td style="text-align:center"><a href="{% url 'edit' task.id %}" class="btn btn-sm btn-outline-secondary">Edit</a></td>
+                        <td style="text-align:center"><a href="{% url 'cross_off' task.id %}" class="btn btn-sm btn-outline-success">Cross Off</a></td>
+                        <td style="text-align:center"><a href="{% url 'delete' task.id %}" class="btn btn-sm btn-outline-danger">Delete</a></td>
+                    </tr>
+                {% endif %}
+            {% endfor %} 
+        </tbody>
     </table>
     
     {% endif %}
