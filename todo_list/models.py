@@ -22,5 +22,11 @@ class List(models.Model):
         blank=True
     )
 
+    # New upload fields
+    file = models.FileField(upload_to='uploads/', null=True, blank=True)
+    image = models.ImageField(upload_to='images/', null=True, blank=True)
+
     def __str__(self):
         return self.item + ' | ' + str(self.completed)
+    
+    
