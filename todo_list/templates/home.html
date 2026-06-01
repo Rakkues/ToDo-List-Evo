@@ -6,7 +6,7 @@
 
     {% if messages %}
         {% for message in messages %}
-            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <div id="django-alert" class="alert alert-warning alert-dismissible fade show" role="alert">
                 {{ message }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
@@ -85,6 +85,29 @@
                     </tr>
                 {% endif %}
             {% endfor %} 
+            <script>
+                // This script is for removing the yellow banner showing an element was edited automatically after 3 seconds
+                document.addEventListener("DOMContentLoaded", function() {
+                    // Find our yellow message banner by its ID
+                    const alertElement = document.getElementById("django-alert");
+                    
+                    if (alertElement) {
+                        // Set a timer for 3000 milliseconds (3 seconds)
+                        setTimeout(function() {
+                            // Option A: Use Bootstrap's built-in smooth close animation
+                            if (typeof bootstrap !== 'undefined' && bootstrap.Alert) {
+                                const bsAlert = new bootstrap.Alert(alertElement);
+                                bsAlert.close();
+                            } else {
+                                // Option B: Plain JavaScript fallback if Bootstrap JS isn't fully loaded
+                                alertElement.style.transition = "opacity 0.5s ease";
+                                alertElement.style.opacity = "0";
+                                setTimeout(() => alertElement.remove(), 500);
+                            }
+                        }, 3000); 
+                    }
+                });
+            </script>
         </tbody>
     </table>
     
