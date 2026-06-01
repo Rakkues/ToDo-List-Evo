@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect
+from django.tasks import task
 from .models import List
 from .forms import ListForm
 from django.contrib import messages
 
 def home(request):
+<<<<<<< Updated upstream
     if request.method == 'POST':
         form = ListForm(request.POST, request.FILES) 
         
@@ -19,21 +21,36 @@ def home(request):
 
     tasks = List.objects.all()
     return render(request, 'home.html', {'tasks': tasks, 'form': form})
+=======
+	if request.method == 'POST':
+		form = ListForm(request.POST or None)
+		
+		if form.is_valid():
+			form.save()
+			tasks = List.objects.all
+			messages.success(request, ("Task Has Been Added To List!"))
+			return render(request, 'home.html', {'tasks': tasks}) 
+
+	else:
+		tasks = List.objects.all
+		return render(request, 'home.html', {'tasks': tasks}) 
+>>>>>>> Stashed changes
 
 
 def about(request):
-    context = {'first_name': 'Alireza', 'last_name': 'Ghorbani'}
-    return render(request, 'about.html', context)
+	context = {'first_name': 'Alireza', 'last_name': 'Ghorbani'}
+	return render(request, 'about.html', context)
 
 
 def delete(request, list_id):
-    task = List.objects.get(pk=list_id)
-    task.delete()
-    messages.success(request, ("Task Has Been Deleted!"))
-    return redirect('home')
+	task = List.objects.get(pk=list_id)
+	task.delete()
+	messages.success(request, ("Task Has Been Deleted!"))
+	return redirect('home')
 
 
 def cross_off(request, list_id):
+<<<<<<< Updated upstream
     task = List.objects.get(pk=list_id)
     task.completed = True
     task.save()
@@ -45,11 +62,24 @@ def uncross(request, list_id):
     task.completed = False
     task.save()
     return redirect('home')
+=======
+	task = List.objects.get(pk=list_id)
+	task.completed = True
+	task.save()
+	return redirect('home')
+
+def uncross(request, list_id):
+	task = List.objects.get(pk=list_id)
+	task.completed = False
+	task.save()
+	return redirect('home')
+>>>>>>> Stashed changes
 
 
 def edit(request, list_id):
     task = List.objects.get(pk=list_id)
 
+<<<<<<< Updated upstream
     if request.method == 'POST':
         form = ListForm(request.POST, request.FILES, instance=task)  # Fixed: pass FILES separately
         
@@ -61,3 +91,20 @@ def edit(request, list_id):
         form = ListForm(instance=task)
 
     return render(request, 'edit.html', {'task': task, 'form': form})
+=======
+		form = ListForm(request.POST or None, instance=task)
+		
+		if form.is_valid():
+			form.save()
+			messages.success(request, ('Task Has Been Edited!'))
+			return redirect('home')
+
+	else:
+		task = List.objects.get(pk=list_id)
+		return render(request, 'edit.html', {'task': task})
+	
+	
+
+
+# password12345
+>>>>>>> Stashed changes
