@@ -15,6 +15,51 @@
     
 <br/>
 
+     <br/>
+
+<!-- ✅ ADD THIS HERE -->
+<form method="GET" class="row g-2 mb-3">
+
+    <div class="col-md-3">
+        <input type="text" name="search" class="form-control" placeholder="Search tasks...">
+    </div>
+
+    <div class="col-md-2">
+        <select name="status" class="form-control">
+            <option value="">Status</option>
+            <option value="completed">Completed</option>
+            <option value="pending">Pending</option>
+        </select>
+    </div>
+
+    <div class="col-md-2">
+        <select name="priority" class="form-control">
+            <option value="">Priority</option>
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
+        </select>
+    </div>
+
+    <div class="col-md-3">
+        <select name="sort" class="form-control">
+            <option value="">Sort By</option>
+            <option value="due_asc">Due Date ↑</option>
+            <option value="due_desc">Due Date ↓</option>
+            <option value="priority_high">Priority High → Low</option>
+            <option value="priority_low">Priority Low → High</option>
+            <option value="time_asc">Time Taken ↑</option>
+            <option value="time_desc">Time Taken ↓</option>
+        </select>
+    </div>
+
+    <div class="col-md-2">
+        <button class="btn btn-primary">Apply</button>
+    </div>
+
+</form>
+    
+
     {% if tasks %}
     
     <table class="table table-bordered table-hover align-middle shadow-sm">
