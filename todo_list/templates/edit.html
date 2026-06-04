@@ -1,22 +1,90 @@
 {% extends 'base.html' %}
 
-{% block title %}Edit{% endblock %}
+{% block title %}Edit Task Details{% endblock %}
 
 {% block content %}
+<div class="container my-4" style="max-width: 600px;">
+    <h2 class="mb-4">Edit Task Details</h2>
+    
     {% if task %}
-		
-    <form class="form-inline my-2 my-lg-0" method="POST">
+    <form method="POST" enctype="multipart/form-data" class="shadow-sm p-4 bg-white rounded border">
         {% csrf_token %}
-        <input class="form-control mr-sm-2" type="search" placeholder="{{ task.item }}" 
-        value="{{ task.item }}" aria-label="Search" name="item">
-      
-        <br/>
+        
+        <div class="mb-3">
+            <label for="id_item" class="form-label fw-bold">Task Description</label>
+            <input type="text" class="form-control" id="id_item" name="item" value="{{ task.item }}" required>
+        </div>
+        
+        <div class="mb-3">
+            <label for="id_priority" class="form-label fw-bold">Priority Level</label>
+            <select class="form-select" id="id_priority" name="priority">
+                {% for choice_val, choice_label in form.fields.priority.choices %}
+                    <option value="{{ choice_val }}" {% if task.priority == choice_val %}selected{% endif %}>
+                        {{ choice_label }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
 
-        <input type="hidden" value="{{ task.completed }}" name="completed">
+        <div class="mb-3">
+            <label for="id_due_date" class="form-label fw-bold">Due Date & Time</label>
+            <input type="datetime-local" class="form-control" id="id_due_date" name="due_date" 
+                   value="{{ task.due_date|date:'Y-m-d\TH:i' }}">
+            <small class="text-muted">Leave blank if there is no set deadline.</small>
+        </div>
 
-        <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Edit Item</button>
+        <div class="mb-3">
+            <label for="id_time_taken" class="form-label fw-bold">Time Allocated / Taken</label>
+            <input type="text" class="form-control" id="id_time_taken" name="time_taken" 
+                   placeholder="e.g., 01:30:00 (HH:MM:SS) or 2 days" value="{% if task.time_taken %}{{ task.time_taken }}{% endif %}">
+            <small class="text-muted">Format: Days DD HH:MM:SS (e.g., "1 02:00:00" for 1 day, 2 hours).</small>
+        </div>
+
+        <div class="mb-4">
+            <label for="id_side_note" class="form-label fw-bold">Side Notes</label>
+            <textarea class="form-control" id="id_side_note" name="side_note" rows="3" 
+                      placeholder="Add any extra context or requirements here...">{% if task.side_note %}{{ task.side_note }}{% endif %}</textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="id_file" class="form-label fw-bold">Attach File</label>
+            <input type="file" class="form-control" id="id_file" name="file">
+            {% if task.file %}
+                <div class="mt-2 d-flex align-items-center gap-2">
+                    <span class="text-muted small">Current:</span>
+                    <a href="{{ task.file.url }}" target="_blank" class="btn btn-sm btn-outline-secondary">
+                        📎 {{ task.file.name|cut:"uploads/" }}
+                    </a>
+                </div>
+                <div class="mt-2 form-check">
+                    <input type="checkbox" class="form-check-input" id="file-clear" name="file-clear">
+                    <label for="file-clear" class="form-check-label text-danger small">Remove current file</label>
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="mb-3">
+            <label for="id_image" class="form-label fw-bold">Attach Image</label>
+            <input type="file" class="form-control" id="id_image" name="image" accept="image/*">
+            {% if task.image %}
+                <div class="mt-2">
+                    <p class="text-muted small mb-1">Current Image:</p>
+                    <a href="{{ task.image.url }}" target="_blank">
+                        <img src="{{ task.image.url }}" alt="Task Image" style="max-width:150px; max-height:150px; border-radius: 6px; border: 1px solid #dee2e6;">
+                    </a>
+                </div>
+                <div class="mt-2 form-check">
+                    <input type="checkbox" class="form-check-input" id="image-clear" name="image-clear">
+                    <label for="image-clear" class="form-check-label text-danger small">Remove current image</label>
+                </div>
+            {% endif %}
+        </div>
+        
+        <div class="d-flex justify-content-between align-items-center">
+            <button class="btn btn-secondary" type="submit">Save Changes</button>
+            <a href="{% url 'home' %}" class="text-decoration-none text-muted">Cancel</a>
+        </div>
     </form>
-
-	{% endif %}
-
+    {% endif %}
+</div>
 {% endblock %}
