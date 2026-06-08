@@ -24,9 +24,22 @@
   </div>
 
   <div class="modal-due-date-field">
-    <label for="modal_time_taken">Time Allocated</label>
-    <input type="text" id="modal_time_taken" name="time_taken" placeholder="e.g., 01:30:00 (HH:MM:SS)">
-    <small class="modal-due-date-hint">Format: DD HH:MM:SS (e.g., "1 02:00:00" for 1 day, 2 hours).</small>
+    <label class="fw-bold">Time Allocated</label>
+    <div class="row g-2 mt-1">
+        <div class="col-4">
+            <label class="text-muted small mb-1" style="font-size: 0.85rem;">Days</label>
+            {{ form.duration_days }}
+        </div>
+        <div class="col-4">
+            <label class="text-muted small mb-1" style="font-size: 0.85rem;">Hours</label>
+            {{ form.duration_hours }}
+        </div>
+        <div class="col-4">
+            <label class="text-muted small mb-1" style="font-size: 0.85rem;">Minutes</label>
+            {{ form.duration_minutes }}
+        </div>
+    </div>
+    <small class="modal-due-date-hint d-block mt-2">Select the maximum duration allocated for this task.</small>
   </div>
 
   <div class="modal-due-date-field">
