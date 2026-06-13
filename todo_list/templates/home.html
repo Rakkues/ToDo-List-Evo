@@ -49,12 +49,56 @@
 
     {% if messages %}
         {% for message in messages %}
-            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <div id="django-alert" class="alert alert-warning alert-dismissible fade show" role="alert">
                 {{ message }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         {% endfor %} 
     {% endif %}
+
+     <br/>
+
+<form method="GET" class="row g-2 mb-3">
+
+    <div class="col-md-3">
+        <input type="text" name="search" class="form-control" placeholder="Search tasks...">
+    </div>
+
+    <div class="col-md-2">
+        <select name="status" class="form-control">
+            <option value="">Status</option>
+            <option value="completed">Completed</option>
+            <option value="pending">Pending</option>
+        </select>
+    </div>
+
+    <div class="col-md-2">
+        <select name="priority" class="form-control">
+            <option value="">Priority</option>
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
+        </select>
+    </div>
+
+    <div class="col-md-3">
+        <select name="sort" class="form-control">
+            <option value="">Sort By</option>
+            <option value="due_asc">Due Date ↑</option>
+            <option value="due_desc">Due Date ↓</option>
+            <option value="priority_high">Priority High → Low</option>
+            <option value="priority_low">Priority Low → High</option>
+            <option value="time_asc">Time Taken ↑</option>
+            <option value="time_desc">Time Taken ↓</option>
+        </select>
+    </div>
+
+    <div class="col-md-2">
+        <button class="btn btn-primary">Apply</button>
+    </div>
+
+</form>
+    
 
     {% if tasks %}
     
@@ -149,6 +193,29 @@
                     </tr>
                 {% endif %}
             {% endfor %} 
+            <script>
+                // This script is for removing the yellow banner showing an element was edited automatically after 3 seconds
+                document.addEventListener("DOMContentLoaded", function() {
+                    // Find our yellow message banner by its ID
+                    const alertElement = document.getElementById("django-alert");
+                    
+                    if (alertElement) {
+                        // Set a timer for 3000 milliseconds (3 seconds)
+                        setTimeout(function() {
+                            // Option A: Use Bootstrap's built-in smooth close animation
+                            if (typeof bootstrap !== 'undefined' && bootstrap.Alert) {
+                                const bsAlert = new bootstrap.Alert(alertElement);
+                                bsAlert.close();
+                            } else {
+                                // Option B: Plain JavaScript fallback if Bootstrap JS isn't fully loaded
+                                alertElement.style.transition = "opacity 0.5s ease";
+                                alertElement.style.opacity = "0";
+                                setTimeout(() => alertElement.remove(), 500);
+                            }
+                        }, 3000); 
+                    }
+                });
+            </script>
         </tbody>
     </table>
     
