@@ -24,6 +24,7 @@
   </div>
 
   <div class="modal-due-date-field">
+<<<<<<< HEAD
     <label class="fw-bold">Time Allocated</label>
     <div class="row g-2 mt-1">
         <div class="col-4">
@@ -40,6 +41,11 @@
         </div>
     </div>
     <small class="modal-due-date-hint d-block mt-2">Select the maximum duration allocated for this task.</small>
+=======
+    <label for="modal_time_taken">Time Allocated</label>
+    <input type="text" id="modal_time_taken" name="time_taken" placeholder="e.g., 01:30:00 (HH:MM:SS)">
+    <small class="modal-due-date-hint">Format: DD HH:MM:SS (e.g., "1 02:00:00" for 1 day, 2 hours).</small>
+>>>>>>> main
   </div>
 
   <div class="modal-due-date-field">
@@ -68,6 +74,53 @@
             </div>
         {% endfor %} 
     {% endif %}
+<<<<<<< HEAD
+=======
+
+     <br/>
+
+<form method="GET" class="row g-2 mb-3">
+
+    <div class="col-md-3">
+        <input type="text" name="search" class="form-control" placeholder="Search tasks...">
+    </div>
+
+    <div class="col-md-2">
+        <select name="status" class="form-control">
+            <option value="">Status</option>
+            <option value="completed">Completed</option>
+            <option value="pending">Pending</option>
+        </select>
+    </div>
+
+    <div class="col-md-2">
+        <select name="priority" class="form-control">
+            <option value="">Priority</option>
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
+        </select>
+    </div>
+
+    <div class="col-md-3">
+        <select name="sort" class="form-control">
+            <option value="">Sort By</option>
+            <option value="due_asc">Due Date ↑</option>
+            <option value="due_desc">Due Date ↓</option>
+            <option value="priority_high">Priority High → Low</option>
+            <option value="priority_low">Priority Low → High</option>
+            <option value="time_asc">Time Taken ↑</option>
+            <option value="time_desc">Time Taken ↓</option>
+        </select>
+    </div>
+
+    <div class="col-md-2">
+        <button class="btn btn-primary">Apply</button>
+    </div>
+
+</form>
+    
+>>>>>>> main
 
     {% if tasks %}
     
@@ -103,7 +156,11 @@
                             {% if task.due_date %}⏰ {{ task.due_date|date:"M d, Y h:i A" }}{% else %}-{% endif %}
                         </td>
                         <td style="text-align:center" class="small">
+<<<<<<< HEAD
                             {{ task.formatted_duration }}
+=======
+                            {% if task.time_taken %}{{ task.time_taken }}{% else %}-{% endif %}
+>>>>>>> main
                         </td>
                         <td style="text-align:center">
                             {% if task.image %}
@@ -143,7 +200,11 @@
                             {% if task.due_date %}⏰ {{ task.due_date|date:"M d, Y h:i A" }}{% else %}<span class="text-muted">-</span>{% endif %}
                         </td>
                         <td style="text-align:center" class="small">
+<<<<<<< HEAD
                             {{ task.formatted_duration }}
+=======
+                            {% if task.time_taken %}{{ task.time_taken }}{% else %}<span class="text-muted">-</span>{% endif %}
+>>>>>>> main
                         </td>
                         <td style="text-align:center">
                             {% if task.image %}
