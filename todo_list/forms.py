@@ -28,6 +28,9 @@ class ListForm(forms.ModelForm):
 
     class Meta:
         model = List
+<<<<<<< HEAD
+        fields = ['item', 'completed', 'due_date', 'side_note', 'time_taken', 'priority']
+=======
         fields = ['item', 'completed', 'due_date', 'side_note', 'priority']
 
     # Pre-fill selections when loading an existing item to Edit
@@ -85,3 +88,4 @@ class ListForm(forms.ModelForm):
         if commit:
             instance.save()
         return instance
+>>>>>>> main

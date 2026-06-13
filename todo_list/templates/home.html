@@ -24,9 +24,28 @@
   </div>
 
   <div class="modal-due-date-field">
+<<<<<<< HEAD
+    <label class="fw-bold">Time Allocated</label>
+    <div class="row g-2 mt-1">
+        <div class="col-4">
+            <label class="text-muted small mb-1" style="font-size: 0.85rem;">Days</label>
+            {{ form.duration_days }}
+        </div>
+        <div class="col-4">
+            <label class="text-muted small mb-1" style="font-size: 0.85rem;">Hours</label>
+            {{ form.duration_hours }}
+        </div>
+        <div class="col-4">
+            <label class="text-muted small mb-1" style="font-size: 0.85rem;">Minutes</label>
+            {{ form.duration_minutes }}
+        </div>
+    </div>
+    <small class="modal-due-date-hint d-block mt-2">Select the maximum duration allocated for this task.</small>
+=======
     <label for="modal_time_taken">Time Allocated</label>
     <input type="text" id="modal_time_taken" name="time_taken" placeholder="e.g., 01:30:00 (HH:MM:SS)">
     <small class="modal-due-date-hint">Format: DD HH:MM:SS (e.g., "1 02:00:00" for 1 day, 2 hours).</small>
+>>>>>>> main
   </div>
 
   <div class="modal-due-date-field">
@@ -55,6 +74,8 @@
             </div>
         {% endfor %} 
     {% endif %}
+<<<<<<< HEAD
+=======
 
      <br/>
 
@@ -99,6 +120,7 @@
 
 </form>
     
+>>>>>>> main
 
     {% if tasks %}
     
@@ -134,7 +156,11 @@
                             {% if task.due_date %}⏰ {{ task.due_date|date:"M d, Y h:i A" }}{% else %}-{% endif %}
                         </td>
                         <td style="text-align:center" class="small">
+<<<<<<< HEAD
+                            {{ task.formatted_duration }}
+=======
                             {% if task.time_taken %}{{ task.time_taken }}{% else %}-{% endif %}
+>>>>>>> main
                         </td>
                         <td style="text-align:center">
                             {% if task.image %}
@@ -174,7 +200,11 @@
                             {% if task.due_date %}⏰ {{ task.due_date|date:"M d, Y h:i A" }}{% else %}<span class="text-muted">-</span>{% endif %}
                         </td>
                         <td style="text-align:center" class="small">
+<<<<<<< HEAD
+                            {{ task.formatted_duration }}
+=======
                             {% if task.time_taken %}{{ task.time_taken }}{% else %}<span class="text-muted">-</span>{% endif %}
+>>>>>>> main
                         </td>
                         <td style="text-align:center">
                             {% if task.image %}
