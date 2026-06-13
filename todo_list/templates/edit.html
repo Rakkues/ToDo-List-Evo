@@ -7,7 +7,7 @@
     <h2 class="mb-4">Edit Task Details</h2>
     
     {% if task %}
-    <form method="POST" class="shadow-sm p-4 bg-white rounded border">
+    <form method="POST" enctype="multipart/form-data" class="shadow-sm p-4 bg-white rounded border">
         {% csrf_token %}
         
         <div class="mb-3">
@@ -58,6 +58,40 @@
                       placeholder="Add any extra context or requirements here...">{% if task.side_note %}{{ task.side_note }}{% endif %}</textarea>
         </div>
 
+        <div class="mb-3">
+            <label for="id_file" class="form-label fw-bold">Attach File</label>
+            <input type="file" class="form-control" id="id_file" name="file">
+            {% if task.file %}
+                <div class="mt-2 d-flex align-items-center gap-2">
+                    <span class="text-muted small">Current:</span>
+                    <a href="{{ task.file.url }}" target="_blank" class="btn btn-sm btn-outline-secondary">
+                        📎 {{ task.file.name|cut:"uploads/" }}
+                    </a>
+                </div>
+                <div class="mt-2 form-check">
+                    <input type="checkbox" class="form-check-input" id="file-clear" name="file-clear">
+                    <label for="file-clear" class="form-check-label text-danger small">Remove current file</label>
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="mb-3">
+            <label for="id_image" class="form-label fw-bold">Attach Image</label>
+            <input type="file" class="form-control" id="id_image" name="image" accept="image/*">
+            {% if task.image %}
+                <div class="mt-2">
+                    <p class="text-muted small mb-1">Current Image:</p>
+                    <a href="{{ task.image.url }}" target="_blank">
+                        <img src="{{ task.image.url }}" alt="Task Image" style="max-width:150px; max-height:150px; border-radius: 6px; border: 1px solid #dee2e6;">
+                    </a>
+                </div>
+                <div class="mt-2 form-check">
+                    <input type="checkbox" class="form-check-input" id="image-clear" name="image-clear">
+                    <label for="image-clear" class="form-check-label text-danger small">Remove current image</label>
+                </div>
+            {% endif %}
+        </div>
+        
         <div class="d-flex justify-content-between align-items-center">
             <button class="btn btn-secondary" type="submit">Save Changes</button>
             <a href="{% url 'home' %}" class="text-decoration-none text-muted">Cancel</a>

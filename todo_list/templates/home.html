@@ -2,6 +2,49 @@
 
 {% block title %}To-Do List{% endblock %}
 
+{% block modal_form %}
+  <div class="modal-due-date-field">
+    <label for="modal_item">Task Description</label>
+    <input type="text" id="modal_item" name="item" required placeholder="What needs to be done?">
+  </div>
+
+  <div class="modal-due-date-field">
+    <label for="modal_priority">Priority</label>
+    <select id="modal_priority" name="priority">
+      {% for choice_val, choice_label in form.fields.priority.choices %}
+        <option value="{{ choice_val }}">{{ choice_label }}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <div class="modal-due-date-field">
+    <label for="modal_due_date">Due Date &amp; Time</label>
+    <input type="datetime-local" id="modal_due_date" name="due_date">
+    <small class="modal-due-date-hint">Leave blank if there is no set deadline.</small>
+  </div>
+
+  <div class="modal-due-date-field">
+    <label for="modal_time_taken">Time Allocated</label>
+    <input type="text" id="modal_time_taken" name="time_taken" placeholder="e.g., 01:30:00 (HH:MM:SS)">
+    <small class="modal-due-date-hint">Format: DD HH:MM:SS (e.g., "1 02:00:00" for 1 day, 2 hours).</small>
+  </div>
+
+  <div class="modal-due-date-field">
+    <label for="modal_side_note">Side Notes</label>
+    <textarea id="modal_side_note" name="side_note" rows="2" placeholder="Any extra context..."></textarea>
+  </div>
+
+  <div class="modal-due-date-field">
+    <label for="modal_file">Attach File</label>
+    <input type="file" id="modal_file" name="file">
+  </div>
+
+  <div class="modal-due-date-field">
+    <label for="modal_image">Attach Image</label>
+    <input type="file" id="modal_image" name="image" accept="image/*">
+  </div>
+{% endblock %}
+
 {% block content %}
 
     {% if messages %}
@@ -12,8 +55,6 @@
             </div>
         {% endfor %} 
     {% endif %}
-    
-<br/>
 
      <br/>
 
@@ -64,10 +105,11 @@
     <table class="table table-bordered table-hover align-middle shadow-sm">
         <thead class="table-light">
             <tr>
-                <th scope="col" style="width: 35%;">Task Details</th>
-                <th scope="col" style="text-align:center; width: 12%;">Priority</th>
-                <th scope="col" style="text-align:center; width: 18%;">Due Date</th>
-                <th scope="col" style="text-align:center; width: 12%;">Duration</th>
+                <th scope="col" style="width: 33%;">Task Details</th>
+                <th scope="col" style="text-align:center; width: 10%;">Priority</th>
+                <th scope="col" style="text-align:center; width: 16%;">Due Date</th>
+                <th scope="col" style="text-align:center; width: 10%;">Duration</th>
+                <th scope="col" style="text-align:center; width: 8%;">Files</th>
                 <th scope="col" style="text-align:center; width: 8%;">Edit</th>
                 <th scope="col" style="text-align:center; width: 8%;">Status</th>
                 <th scope="col" style="text-align:center; width: 7%;">Remove</th>
@@ -93,6 +135,17 @@
                         </td>
                         <td style="text-align:center" class="small">
                             {% if task.time_taken %}{{ task.time_taken }}{% else %}-{% endif %}
+                        </td>
+                        <td style="text-align:center">
+                            {% if task.image %}
+                                <a href="{{ task.image.url }}" target="_blank" title="View Image">🖼️</a>
+                            {% endif %}
+                            {% if task.file %}
+                                <a href="{{ task.file.url }}" target="_blank" title="Open File">📎</a>
+                            {% endif %}
+                            {% if not task.image and not task.file %}
+                                <span class="text-muted">-</span>
+                            {% endif %}
                         </td>
                         <td style="text-align:center"><a href="{% url 'edit' task.id %}" class="btn btn-sm btn-outline-secondary">Edit</a></td>
                         <td style="text-align:center"><a href="{% url 'uncross' task.id %}" class="btn btn-sm btn-outline-dark">Uncross</a></td>
@@ -122,6 +175,17 @@
                         </td>
                         <td style="text-align:center" class="small">
                             {% if task.time_taken %}{{ task.time_taken }}{% else %}<span class="text-muted">-</span>{% endif %}
+                        </td>
+                        <td style="text-align:center">
+                            {% if task.image %}
+                                <a href="{{ task.image.url }}" target="_blank" title="View Image">🖼️</a>
+                            {% endif %}
+                            {% if task.file %}
+                                <a href="{{ task.file.url }}" target="_blank" title="Open File">📎</a>
+                            {% endif %}
+                            {% if not task.image and not task.file %}
+                                <span class="text-muted">-</span>
+                            {% endif %}
                         </td>
                         <td style="text-align:center"><a href="{% url 'edit' task.id %}" class="btn btn-sm btn-outline-secondary">Edit</a></td>
                         <td style="text-align:center"><a href="{% url 'cross_off' task.id %}" class="btn btn-sm btn-outline-success">Cross Off</a></td>
