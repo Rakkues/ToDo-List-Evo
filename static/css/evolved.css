@@ -1,14 +1,23 @@
 /*To-Do List Evolved CSS*/
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  padding: 0 0 100px 0;
+}
+
 .form-container {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 25px;
 }
 
 .form-container form {
   background-color: #eeeeee;
   border-radius: 10px;
-  box-shadow: 0 5px 10px #cfcfcf;
   display: grid;
   grid-template-columns: 1fr auto;
   gap: 10px;
@@ -70,14 +79,6 @@
 
 .details-btn[aria-expanded="true"] i {
   transform: rotate(180deg);
-}
-
-.add-task-btn {
-  background-color: #00a0ff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 0.5rem 1rem;
 }
 
 .desc-group-container {
@@ -160,14 +161,22 @@
   padding: 0.5rem;
 }
 
-.task-desc input[type="file"]::file-selector-button {
-  background-color: #fafafafa;
-  border-radius: 50px;
-  border: none;
-  padding: 0.25rem 0.5rem;
-  margin-right: 0.5rem;
+.icon-btn:hover {
+  text-decoration: none;
 }
 
-.task-desc input[type="file"]::file-selector-button:hover {
-  background-color: #ffffff;
+.icon-btn .icon-hover {
+  display: none;
+}
+
+.icon-btn:hover .icon-hover {
+  display: block;
+}
+
+.icon-btn:hover .icon-default {
+  display: none;
+}
+
+.delete-btn {
+  color: red;
 }

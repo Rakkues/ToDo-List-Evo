@@ -1,71 +1,14 @@
 {% extends 'base.html' %}
 {% block title %}To-Do List{% endblock %}
-{% block modal_form %}
-  <div class="modal-due-date-field">
-    <label for="modal_item">Task Description</label>
-    <input
-      type="text"
-      id="modal_item"
-      name="item"
-      required
-      placeholder="What needs to be done?"
-    />
-  </div>
-
-  <div class="modal-due-date-field">
-    <label for="modal_priority">Priority</label>
-    <select id="modal_priority" name="priority">
-      {% for choice_val, choice_label in form.fields.priority.choices %}
-        <option value="{{ choice_val }}">{{ choice_label }}</option>
-      {% endfor %}
-    </select>
-  </div>
-
-  <div class="modal-due-date-field">
-    <label for="modal_due_date">Due Date &amp; Time</label>
-    <input type="datetime-local" id="modal_due_date" name="due_date" />
-    <small class="modal-due-date-hint"
-      >Leave blank if there is no set deadline.</small
-    >
-  </div>
-
-  <div class="modal-due-date-field">
-    <label for="modal_time_taken">Time Allocated</label>
-    <input
-      type="text"
-      id="modal_time_taken"
-      name="time_taken"
-      placeholder="e.g., 01:30:00 (HH:MM:SS)"
-    />
-    <small class="modal-due-date-hint"
-      >Format: DD HH:MM:SS (e.g., "1 02:00:00" for 1 day, 2 hours).</small
-    >
-  </div>
-
-  <div class="modal-due-date-field">
-    <label for="modal_side_note">Side Notes</label>
-    <textarea
-      id="modal_side_note"
-      name="side_note"
-      rows="2"
-      placeholder="Any extra context..."
-    ></textarea>
-  </div>
-
-  <div class="modal-due-date-field">
-    <label for="modal_file">Attach File</label>
-    <input type="file" id="modal_file" name="file" />
-  </div>
-
-  <div class="modal-due-date-field">
-    <label for="modal_image">Attach Image</label>
-    <input type="file" id="modal_image" name="image" accept="image/*" />
-  </div>
-{% endblock %}
 
 {% block content %}
   <div class="form-container">
-    <form method="post" enctype="multipart/form-data" action="{% url 'home' %}">
+    <form
+      class="shadow"
+      method="post"
+      enctype="multipart/form-data"
+      action="{% url 'home' %}"
+    >
       {% csrf_token %}
       <div class="input-details-container">
         <input
@@ -138,16 +81,22 @@
 
         <div class="task-desc">
           <label for="modal_file">Attach File</label>
-          <input type="file" id="modal_file" name="file" />
+          <input class="form-control" type="file" id="modal_file" name="file" />
         </div>
 
         <div class="task-desc">
           <label for="modal_image">Attach Image</label>
-          <input type="file" id="modal_image" name="image" accept="image/*" />
+          <input
+            class="form-control"
+            type="file"
+            id="modal_image"
+            name="image"
+            accept="image/*"
+          />
         </div>
       </div>
 
-      <button type="submit" class="add-task-btn">Add Task</button>
+      <button type="submit" class="btn btn-primary">Add Task</button>
     </form>
   </div>
 
@@ -216,43 +165,45 @@
   </form>
 
   {% if tasks %}
-    <table class="table table-bordered table-hover align-middle shadow-sm">
-      <thead class="table-light">
-        <tr>
-          <th scope="col" style="text-align: center; width: 8%"></th>
-          <th scope="col" style="width: 33%">Task Details</th>
-          <th scope="col" style="text-align: center; width: 10%">Priority</th>
-          <th scope="col" style="text-align: center; width: 16%">Due Date</th>
-          <th scope="col" style="text-align: center; width: 10%">Duration</th>
-          <th scope="col" style="text-align: center; width: 8%">Files</th>
-          <th scope="col" style="text-align: center; width: 8%">Edit</th>
-          <th scope="col" style="text-align: center; width: 7%">Remove</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for task in tasks %}{% if task.completed %}
-          <tr class="table-success text-muted">
-            <td style="text-align: center">
-              <a
-                href="{% url 'uncross' task.id %}"
-                class="btn btn-sm btn-outline-dark"
-                >Uncross</a
-              >
-            </td>
-            <td>
-              <span class="striker">{{ task.item }}</span>
-              {% if task.side_note %}
-                <div
-                  class="small text-wrap text-muted mt-1"
-                  style="font-style: italic"
-                >
-                  📝 {{ task.side_note }}
-                </div>
-              {% endif %}
-            </td>
-            <td style="text-align: center">
-              <span
-                style="
+    <div class="rounded overflow-hidden border shadow-sm">
+      <table class="table table-hover align-middle m-0">
+        <thead class="table-light">
+          <tr>
+            <th scope="col" style="text-align: center; width: 5%"></th>
+            <th scope="col" style="width: 25%">Task Details</th>
+            <th scope="col" style="text-align: center; width: 10%">Priority</th>
+            <th scope="col" style="text-align: center; width: 16%">Due Date</th>
+            <th scope="col" style="text-align: center; width: 10%">Duration</th>
+            <th scope="col" style="text-align: center; width: 8%">Files</th>
+            <th scope="col" style="text-align: center; width: 5%">Edit</th>
+            <th scope="col" style="text-align: center; width: 5%"></th>
+          </tr>
+        </thead>
+        <tbody class="table-group-divider">
+          {% for task in tasks %}{% if task.completed %}
+            <tr class="table-success text-muted">
+              <td style="text-align: center">
+                <a
+                  href="{% url 'uncross' task.id %}"
+                  class="icon-btn crossed-btn"
+                  ><i class="fa-regular fa-circle-dot icon-default"></i>
+                  <i class="fa-regular fa-circle icon-hover"></i>
+                </a>
+              </td>
+              <td>
+                <span class="striker">{{ task.item }}</span>
+                {% if task.side_note %}
+                  <div
+                    class="small text-wrap text-muted mt-1"
+                    style="font-style: italic"
+                  >
+                    📝 {{ task.side_note }}
+                  </div>
+                {% endif %}
+              </td>
+              <td style="text-align: center">
+                <span
+                  style="
                         display: inline-block;
                         width: 12px;
                         height: 12px;
@@ -260,179 +211,183 @@
                         background-color: #6c757d;
                         opacity: 0.5;
                     "
-                title="Completed (Was {{ task.priority }})"
-              ></span>
-            </td>
-            <td style="text-align: center" class="small">
-              {% if task.due_date %}⏰ {{ task.due_date|date:"M d, Y h:i A" }}{% else %}-{% endif %}
-            </td>
-            <td style="text-align: center" class="small">
-              {% if task.time_taken %}
-                {{ task.time_taken }}
-              {% else %}
-                -
-              {% endif %}
-            </td>
-            <td style="text-align: center">
-              {% if task.image %}
-                <a
-                  href="{{ task.image.url }}"
-                  target="_blank"
-                  title="View Image"
-                  >🖼️</a
-                >
-              {% endif %}
-              {% if task.file %}
-                <a href="{{ task.file.url }}" target="_blank" title="Open File"
-                  >📎</a
-                >
-              {% endif %}
-              {% if not task.image and not task.file %}
-                <span class="text-muted">-</span>
-              {% endif %}
-            </td>
-            <td style="text-align: center">
-              <a
-                href="{% url 'edit' task.id %}"
-                class="btn btn-sm btn-outline-secondary"
-                >Edit</a
-              >
-            </td>
+                  title="Completed (Was {{ task.priority }})"
+                ></span>
+              </td>
+              <td style="text-align: center" class="small">
+                {% if task.due_date %}⏰ {{ task.due_date|date:"M d, Y h:i A" }}{% else %}-{% endif %}
+              </td>
+              <td style="text-align: center" class="small">
+                {% if task.time_taken %}
+                  {{ task.time_taken }}
+                {% else %}
+                  -
+                {% endif %}
+              </td>
+              <td style="text-align: center">
+                {% if task.image %}
+                  <a
+                    href="{{ task.image.url }}"
+                    target="_blank"
+                    title="View Image"
+                    >🖼️</a
+                  >
+                {% endif %}
+                {% if task.file %}
+                  <a
+                    href="{{ task.file.url }}"
+                    target="_blank"
+                    title="Open File"
+                    >📎</a
+                  >
+                {% endif %}
+                {% if not task.image and not task.file %}
+                  <span class="text-muted">-</span>
+                {% endif %}
+              </td>
+              <td style="text-align: center">
+                <a href="{% url 'edit' task.id %}" class="icon-btn edit-btn ">
+                  <i class="fa-solid fa-pen-to-square icon-default"></i
+                  ><i class="fa-regular fa-pen-to-square icon-hover"></i>
+                </a>
+              </td>
 
-            <td style="text-align: center">
-              <a
-                href="{% url 'delete' task.id %}"
-                class="btn btn-sm btn-outline-danger"
-                >Delete</a
-              >
-            </td>
-          </tr>
-        {% else %}
-          <tr>
-            <td style="text-align: center">
-              <a
-                href="{% url 'cross_off' task.id %}"
-                class="btn btn-sm btn-outline-success"
-                >Cross Off</a
-              >
-            </td>
-            <td>
-              <strong class="text-dark">{{ task.item }}</strong>
-              {% if task.side_note %}
-                <div class="small text-wrap text-secondary mt-1">
-                  📝 {{ task.side_note }}
-                </div>
-              {% endif %}
-            </td>
-            <td style="text-align: center">
-              {% if task.priority == 'High' or task.priority == '🔴 High' %}
-                <span
-                  style="
+              <td style="text-align: center">
+                <a href="{% url 'delete' task.id %}" class="icon-btn delete-btn"
+                  ><i class="fa-solid fa-trash-can icon-default"></i
+                  ><i class="fa-regular fa-trash-can icon-hover"></i
+                ></a>
+              </td>
+            </tr>
+          {% else %}
+            <tr>
+              <td style="text-align: center">
+                <a
+                  href="{% url 'cross_off' task.id %}"
+                  class="icon-btn uncrossed-btn"
+                  ><i class="fa-regular fa-circle icon-default"></i>
+                  <i class="fa-regular fa-circle-dot icon-hover"></i>
+                </a>
+              </td>
+              <td>
+                <strong class="text-dark">{{ task.item }}</strong>
+                {% if task.side_note %}
+                  <div class="small text-wrap text-secondary mt-1">
+                    📝 {{ task.side_note }}
+                  </div>
+                {% endif %}
+              </td>
+              <td style="text-align: center">
+                {% if task.priority == 'High' or task.priority == '🔴 High' %}
+                  <span
+                    style="
                         display: inline-block;
                         width: 12px;
                         height: 12px;
                         border-radius: 50%;
                         background-color: #dc3545;
                     "
-                  title="High Priority"
-                ></span>
-              {% elif task.priority == 'Medium' or task.priority == '🟡 Medium' %}
-                <span
-                  style="
+                    title="High Priority"
+                  ></span>
+                {% elif task.priority == 'Medium' or task.priority == '🟡 Medium' %}
+                  <span
+                    style="
                         display: inline-block;
                         width: 12px;
                         height: 12px;
                         border-radius: 50%;
                         background-color: #ffc107;
                     "
-                  title="Medium Priority"
-                ></span>
-              {% else %}
-                <span
-                  style="
+                    title="Medium Priority"
+                  ></span>
+                {% else %}
+                  <span
+                    style="
                         display: inline-block;
                         width: 12px;
                         height: 12px;
                         border-radius: 50%;
                         background-color: #0dcaf0;
                     "
-                  title="Low Priority"
-                ></span>
-              {% endif %}
-            </td>
-            <td style="text-align: center" class="small fw-semibold">
-              {% if task.due_date %}
-                ⏰ {{ task.due_date|date:"M d, Y h:i A" }}
-              {% else %}
-                <span class="text-muted">-</span>
-              {% endif %}
-            </td>
-            <td style="text-align: center" class="small">
-              {% if task.time_taken %}
-                {{ task.time_taken }}
-              {% else %}
-                <span class="text-muted">-</span>
-              {% endif %}
-            </td>
-            <td style="text-align: center">
-              {% if task.image %}
-                <a
-                  href="{{ task.image.url }}"
-                  target="_blank"
-                  title="View Image"
-                  >🖼️</a
-                >
-              {% endif %}
-              {% if task.file %}
-                <a href="{{ task.file.url }}" target="_blank" title="Open File"
-                  >📎</a
-                >
-              {% endif %}
-              {% if not task.image and not task.file %}
-                <span class="text-muted">-</span>
-              {% endif %}
-            </td>
-            <td style="text-align: center">
-              <a
-                href="{% url 'edit' task.id %}"
-                class="btn btn-sm btn-outline-secondary"
-                >Edit</a
-              >
-            </td>
+                    title="Low Priority"
+                  ></span>
+                {% endif %}
+              </td>
+              <td style="text-align: center" class="small fw-semibold">
+                {% if task.due_date %}
+                  ⏰ {{ task.due_date|date:"M d, Y h:i A" }}
+                {% else %}
+                  <span class="text-muted">-</span>
+                {% endif %}
+              </td>
+              <td style="text-align: center" class="small">
+                {% if task.time_taken %}
+                  {{ task.time_taken }}
+                {% else %}
+                  <span class="text-muted">-</span>
+                {% endif %}
+              </td>
+              <td style="text-align: center">
+                {% if task.image %}
+                  <a
+                    href="{{ task.image.url }}"
+                    target="_blank"
+                    title="View Image"
+                    >🖼️</a
+                  >
+                {% endif %}
+                {% if task.file %}
+                  <a
+                    href="{{ task.file.url }}"
+                    target="_blank"
+                    title="Open File"
+                    >📎</a
+                  >
+                {% endif %}
+                {% if not task.image and not task.file %}
+                  <span class="text-muted">-</span>
+                {% endif %}
+              </td>
+              <td style="text-align: center">
+                <a href="{% url 'edit' task.id %}" class="icon-btn edit-btn">
+                  <i class="fa-solid fa-pen-to-square icon-default"></i
+                  ><i class="fa-regular fa-pen-to-square icon-hover"></i>
+                </a>
+              </td>
 
-            <td style="text-align: center">
-              <a
-                href="{% url 'delete' task.id %}"
-                class="btn btn-sm btn-outline-danger"
-                >Delete</a
-              >
-            </td>
-          </tr>
-        {% endif %}{% endfor %}
-        <script>
-          // This script is for removing the yellow banner showing an element was edited automatically after 3 seconds
-          document.addEventListener("DOMContentLoaded", function () {
-            // Find our yellow message banner by its ID
-            const alertElement = document.getElementById("django-alert");
+              <td style="text-align: center">
+                <a href="{% url 'delete' task.id %}" class="delete-btn icon-btn"
+                  ><i class="fa-solid fa-trash-can icon-default"></i
+                  ><i class="fa-regular fa-trash-can icon-hover"></i
+                ></a>
+              </td>
+            </tr>
+          {% endif %}{% endfor %}
+          <script>
+            // This script is for removing the yellow banner showing an element was edited automatically after 3 seconds
+            document.addEventListener("DOMContentLoaded", function () {
+              // Find our yellow message banner by its ID
+              const alertElement = document.getElementById("django-alert");
 
-            if (alertElement) {
-              // Set a timer for 3000 milliseconds (3 seconds)
-              setTimeout(function () {
-                // Option A: Use Bootstrap's built-in smooth close animation
-                if (typeof bootstrap !== "undefined" && bootstrap.Alert) {
-                  const bsAlert = new bootstrap.Alert(alertElement);
-                  bsAlert.close();
-                } else {
-                  // Option B: Plain JavaScript fallback if Bootstrap JS isn't fully loaded
-                  alertElement.style.transition = "opacity 0.5s ease";
-                  alertElement.style.opacity = "0";
-                  setTimeout(() => alertElement.remove(), 500);
-                }
-              }, 3000);
-            }
-          });
-        </script>
-      </tbody>
-    </table>
+              if (alertElement) {
+                // Set a timer for 3000 milliseconds (3 seconds)
+                setTimeout(function () {
+                  // Option A: Use Bootstrap's built-in smooth close animation
+                  if (typeof bootstrap !== "undefined" && bootstrap.Alert) {
+                    const bsAlert = new bootstrap.Alert(alertElement);
+                    bsAlert.close();
+                  } else {
+                    // Option B: Plain JavaScript fallback if Bootstrap JS isn't fully loaded
+                    alertElement.style.transition = "opacity 0.5s ease";
+                    alertElement.style.opacity = "0";
+                    setTimeout(() => alertElement.remove(), 500);
+                  }
+                }, 3000);
+              }
+            });
+          </script>
+        </tbody>
+      </table>
+    </div>
   {% endif %}
 {% endblock %}
