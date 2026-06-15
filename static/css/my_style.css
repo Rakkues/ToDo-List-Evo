@@ -155,33 +155,48 @@
 
 /*To-Do List Evolved CSS*/
 .form-container {
-  background-color: grey;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .form-container form {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
+  background-color: lightgrey;
+  border-radius: 10px;
+  display: grid;
+  grid-template-columns: 1fr auto;
   gap: 10px;
-  width: 100%;
+  width: 70%;
+  margin: 0 auto;
   padding: 1rem;
+  align-items: center;
 }
 
 .input-details-container {
   display: flex;
   border: 1px solid black;
   border-radius: 5px;
-  padding: 0.5rem 1rem;
-  width: 70%;
+  width: 100%;
+}
+
+.form-container form:has(.details-container.show),
+.form-container form:has(.details-container.collapsing) {
+  grid-template-columns: 1fr;
+}
+
+.form-container form:has(.details-container.show) .task-add-btn,
+.form-container form:has(.details-container.collapsing) .task-add-btn {
+  grid-column: 1;
+  justify-self: center;
+  width: 100%;
 }
 
 .task-desc {
   background-color: transparent;
   border: none;
-  margin-right: auto;
+  flex: 1;
+  min-width: 0;
+  padding: 0.5rem 1rem;
 }
 
 .task-desc:focus {
@@ -195,6 +210,17 @@
 .details-btn {
   border: none;
   background-color: transparent;
+  flex-shrink: 0;
+  white-space: nowrap;
+  padding: 0.5rem 1rem;
+}
+
+.details-btn i {
+  transition: transform 0.2s ease;
+}
+
+.details-btn[aria-expanded="true"] i {
+  transform: rotate(180deg);
 }
 
 .details-container {
