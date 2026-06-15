@@ -1,153 +1,201 @@
 .striker {
-    text-decoration: line-through;
+  text-decoration: line-through;
 }
 
 /* ── Add Task Modal Card ── */
 .task-form-card {
-    border: 2px solid #111 !important;
-    border-radius: 12px !important;
-    overflow: hidden;
-    box-shadow: 5px 5px 0px #111;
+  border: 2px solid #111 !important;
+  border-radius: 12px !important;
+  overflow: hidden;
+  box-shadow: 5px 5px 0px #111;
 }
 
 .task-form-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background: #111;
-    color: #fff;
-    padding: 14px 20px;
-    border-bottom: none !important;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #111;
+  color: #fff;
+  padding: 14px 20px;
+  border-bottom: none !important;
 }
 
 .task-form-icon {
-    font-size: 1rem;
-    color: #f9c74f;
+  font-size: 1rem;
+  color: #f9c74f;
 }
 
 .task-form-title {
-    margin: 0;
-    font-size: 1rem;
-    font-weight: 600;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
 .task-form-body {
-    padding: 20px 24px;
+  padding: 20px 24px;
 }
 
 .task-form-body p {
-    margin-bottom: 14px;
+  margin-bottom: 14px;
 }
 
 .task-form-body label {
-    display: block;
-    font-size: 0.78rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: #555;
-    margin-bottom: 4px;
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #555;
+  margin-bottom: 4px;
 }
 
 .task-form-body input,
 .task-form-body select,
 .task-form-body textarea {
-    width: 100%;
-    padding: 8px 12px;
-    border: 1.5px solid #ccc;
-    border-radius: 7px;
-    font-size: 0.95rem;
-    transition: border-color 0.2s;
-    box-sizing: border-box;
+  width: 100%;
+  padding: 8px 12px;
+  border: 1.5px solid #ccc;
+  border-radius: 7px;
+  font-size: 0.95rem;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
 }
 
 .task-form-body input:focus,
 .task-form-body select:focus,
 .task-form-body textarea:focus {
-    outline: none;
-    border-color: #111;
-    box-shadow: none;
+  outline: none;
+  border-color: #111;
+  box-shadow: none;
 }
 
 .task-add-btn {
-    margin-top: 6px;
-    padding: 9px 22px;
-    background: #111;
-    color: #fff;
-    border: none;
-    border-radius: 7px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    letter-spacing: 0.04em;
-    cursor: pointer;
-    transition: background 0.2s, transform 0.1s;
+  padding: 9px 22px;
+  background: #111;
+  color: #fff;
+  border: none;
+  border-radius: 7px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    transform 0.1s;
 }
 
 .task-add-btn:hover {
-    background: #333;
-    transform: translateY(-1px);
+  background: #333;
+  transform: translateY(-1px);
 }
 
 .task-add-btn:active {
-    transform: translateY(0);
+  transform: translateY(0);
 }
 
 /* ── Force modal to use custom card styles ── */
 #addTaskModal .modal-content {
-    border: 2px solid #111 !important;
-    border-radius: 12px !important;
-    overflow: hidden;
-    box-shadow: 5px 5px 0px #111;
-    padding: 0 !important;
+  border: 2px solid #111 !important;
+  border-radius: 12px !important;
+  overflow: hidden;
+  box-shadow: 5px 5px 0px #111;
+  padding: 0 !important;
 }
 
 #addTaskModal .modal-body {
-    padding: 0 !important;
+  padding: 0 !important;
 }
 
 #addTaskModal p:has(input[name="completed"]) {
-    display: none;
+  display: none;
 }
 
 #addTaskModal p:has(input[name="due_date"]) {
-    display: none;
+  display: none;
 }
 /* ── Modal Due Date Field ── */
 .modal-due-date-field {
-    margin-bottom: 14px;
+  margin-bottom: 14px;
 }
 
 .modal-due-date-field label {
-    display: block;
-    font-size: 0.78rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: #555;
-    margin-bottom: 4px;
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #555;
+  margin-bottom: 4px;
 }
 
 .modal-due-date-field input[type="datetime-local"] {
-    width: 100%;
-    padding: 8px 12px;
-    border: 1.5px solid #ccc;
-    border-radius: 7px;
-    font-size: 0.95rem;
-    transition: border-color 0.2s;
-    box-sizing: border-box;
+  width: 100%;
+  padding: 8px 12px;
+  border: 1.5px solid #ccc;
+  border-radius: 7px;
+  font-size: 0.95rem;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
 }
 
 .modal-due-date-field input[type="datetime-local"]:focus {
-    outline: none;
-    border-color: #111;
-    box-shadow: none;
+  outline: none;
+  border-color: #111;
+  box-shadow: none;
 }
 
 .modal-due-date-hint {
-    display: block;
-    margin-top: 4px;
-    font-size: 0.78rem;
-    color: #888;
+  display: block;
+  margin-top: 4px;
+  font-size: 0.78rem;
+  color: #888;
+}
+
+/*To-Do List Evolved CSS*/
+.form-container {
+  background-color: grey;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-container form {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  padding: 1rem;
+}
+
+.input-details-container {
+  display: flex;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  width: 70%;
+}
+
+.task-desc {
+  background-color: transparent;
+  border: none;
+  margin-right: auto;
+}
+
+.task-desc:focus {
+  outline: none;
+}
+
+.task-desc::placeholder {
+  color: darkgrey;
+}
+
+.details-btn {
+  border: none;
+  background-color: transparent;
+}
+
+.details-container {
 }
