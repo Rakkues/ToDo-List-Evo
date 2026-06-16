@@ -22,6 +22,10 @@ class List(models.Model):
         blank=True
     )
 
+<<<<<<< HEAD
+    def __str__(self):
+        return self.item + ' | ' + str(self.completed)
+=======
     # New upload fields
     file = models.FileField(upload_to='uploads/', null=True, blank=True)
     image = models.ImageField(upload_to='images/', null=True, blank=True)
@@ -51,3 +55,4 @@ class List(models.Model):
         return " ".join(parts) if parts else "0 Min"
         
     
+>>>>>>> main

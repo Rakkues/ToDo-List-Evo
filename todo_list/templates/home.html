@@ -110,6 +110,23 @@
           />
         </div>
       </div>
+    <label class="fw-bold">Time Allocated</label>
+    <div class="row g-2 mt-1">
+        <div class="col-4">
+            <label class="text-muted small mb-1" style="font-size: 0.85rem;">Days</label>
+            {{ form.duration_days }}
+        </div>
+        <div class="col-4">
+            <label class="text-muted small mb-1" style="font-size: 0.85rem;">Hours</label>
+            {{ form.duration_hours }}
+        </div>
+        <div class="col-4">
+            <label class="text-muted small mb-1" style="font-size: 0.85rem;">Minutes</label>
+            {{ form.duration_minutes }}
+        </div>
+    </div>
+    <small class="modal-due-date-hint d-block mt-2">Select the maximum duration allocated for this task.</small>
+  </div>
 
       <button type="submit" class="add-task-btn btn btn-primary">
         Add Task
@@ -184,6 +201,10 @@
   {% if tasks %}
     <div class="rounded overflow-hidden border shadow-sm">
       <table class="table table-hover align-middle m-0">
+
+    {% if tasks %}
+    
+    <table class="table table-bordered table-hover align-middle shadow-sm">
         <thead class="table-light">
           <tr>
             <th scope="col" style="text-align: center; width: 5%"></th>
@@ -257,6 +278,63 @@
                     title="Open File"
                     >📎</a
                   >
+                            {{ task.formatted_duration }}
+                        </td>
+                        <td style="text-align:center">
+                            {% if task.image %}
+                                <a href="{{ task.image.url }}" target="_blank" title="View Image">🖼️</a>
+                            {% endif %}
+                            {% if task.file %}
+                                <a href="{{ task.file.url }}" target="_blank" title="Open File">📎</a>
+                            {% endif %}
+                            {% if not task.image and not task.file %}
+                                <span class="text-muted">-</span>
+                            {% endif %}
+                        </td>
+                        <td style="text-align:center"><a href="{% url 'edit' task.id %}" class="btn btn-sm btn-outline-secondary">Edit</a></td>
+                        <td style="text-align:center"><a href="{% url 'uncross' task.id %}" class="btn btn-sm btn-outline-dark">Uncross</a></td>
+                        <td style="text-align:center"><a href="{% url 'delete' task.id %}" class="btn btn-sm btn-outline-danger">Delete</a></td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td>
+                            <strong class="text-dark">{{ task.item }}</strong>
+                            {% if task.side_note %}
+                                <div class="small text-wrap text-secondary mt-1">
+                                    📝 {{ task.side_note }}
+                                </div>
+                            {% endif %}
+                        </td>
+                        <td style="text-align:center">
+                            {% if task.priority == 'High' or task.priority == '🔴 High' %}
+                                <span style="display: inline-block; width: 12px; height: 12px; border-radius: 50%; background-color: #dc3545;" title="High Priority"></span>
+                            {% elif task.priority == 'Medium' or task.priority == '🟡 Medium' %}
+                                <span style="display: inline-block; width: 12px; height: 12px; border-radius: 50%; background-color: #ffc107;" title="Medium Priority"></span>
+                            {% else %}
+                                <span style="display: inline-block; width: 12px; height: 12px; border-radius: 50%; background-color: #0dcaf0;" title="Low Priority"></span>
+                            {% endif %}
+                        </td>
+                        <td style="text-align:center" class="small fw-semibold">
+                            {% if task.due_date %}⏰ {{ task.due_date|date:"M d, Y h:i A" }}{% else %}<span class="text-muted">-</span>{% endif %}
+                        </td>
+                        <td style="text-align:center" class="small">
+                            {{ task.formatted_duration }}
+                        </td>
+                        <td style="text-align:center">
+                            {% if task.image %}
+                                <a href="{{ task.image.url }}" target="_blank" title="View Image">🖼️</a>
+                            {% endif %}
+                            {% if task.file %}
+                                <a href="{{ task.file.url }}" target="_blank" title="Open File">📎</a>
+                            {% endif %}
+                            {% if not task.image and not task.file %}
+                                <span class="text-muted">-</span>
+                            {% endif %}
+                        </td>
+                        <td style="text-align:center"><a href="{% url 'edit' task.id %}" class="btn btn-sm btn-outline-secondary">Edit</a></td>
+                        <td style="text-align:center"><a href="{% url 'cross_off' task.id %}" class="btn btn-sm btn-outline-success">Cross Off</a></td>
+                        <td style="text-align:center"><a href="{% url 'delete' task.id %}" class="btn btn-sm btn-outline-danger">Delete</a></td>
+                    </tr>
                 {% endif %}
                 {% if not task.image and not task.file %}
                   <span class="text-muted">-</span>
