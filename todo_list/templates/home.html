@@ -51,23 +51,32 @@
               >Leave blank if there is no set deadline.</small
             >
           </div>
-
-          <div class="task-desc">
-            <label for="modal_time_taken task-desc-input">Time Allocated</label>
-            <input
-              class="task-desc-input"
-              type="text"
-              id="modal_time_taken"
-              name="time_taken"
-              placeholder="e.g., 01:30:00 (HH:MM:SS)"
-            />
-            <small class="modal-due-date-hint"
-              >Format: DD HH:MM:SS (e.g., "1 02:00:00" for 1 day, 2
-              hours).</small
-            >
+        </div>
+        <div class="task-desc">
+          <label class="form-label fw-bold">Time Allocated</label>
+          <div class="row g-2">
+            <div class="col-4">
+              <label for="id_duration_days" class="form-label text-muted small"
+                >Days</label
+              >
+              {{ form.duration_days }}
+            </div>
+            <div class="col-4">
+              <label for="id_duration_hours" class="form-label text-muted small"
+                >Hours</label
+              >
+              {{ form.duration_hours }}
+            </div>
+            <div class="col-4">
+              <label
+                for="id_duration_minutes"
+                class="form-label text-muted small"
+                >Minutes</label
+              >
+              {{ form.duration_minutes }}
+            </div>
           </div>
         </div>
-
         <div class="task-desc">
           <label for="modal_side_note">Side Notes</label>
           <textarea
