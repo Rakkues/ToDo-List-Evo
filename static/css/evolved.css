@@ -8,6 +8,17 @@ body {
   padding: 0 0 100px 0;
 }
 
+.title-bar {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.app-title {
+  font-size: 3rem;
+  text-transform: uppercase;
+}
+
 .form-container {
   display: flex;
   align-items: center;
@@ -16,12 +27,12 @@ body {
 }
 
 .form-container form {
-  background-color: #eeeeee;
+  background-color: #f5f5f5;
   border-radius: 10px;
   display: grid;
   grid-template-columns: 1fr auto;
   gap: 10px;
-  width: 70%;
+  width: 100%;
   margin: 0 auto;
   padding: 1rem;
   align-items: center;
@@ -30,10 +41,16 @@ body {
 .input-details-container {
   background-color: #fafafa;
   border: 1.5px solid #ccc;
+  box-shadow: inset #afafaf 0px 0px 3px;
   color: darkgrey;
   display: flex;
   border-radius: 5px;
   width: 100%;
+}
+
+.add-task-btn {
+  height: 100%;
+  min-width: 200px;
 }
 
 .form-container form:has(.details-container.show),
@@ -41,8 +58,8 @@ body {
   grid-template-columns: 1fr;
 }
 
-.form-container form:has(.details-container.show) .task-add-btn,
-.form-container form:has(.details-container.collapsing) .task-add-btn {
+.form-container form:has(.details-container.show) .add-task-btn,
+.form-container form:has(.details-container.collapsing) .add-task-btn {
   grid-column: 1;
   justify-self: center;
   width: 100%;
@@ -179,4 +196,37 @@ body {
 
 .delete-btn {
   color: red;
+}
+
+/* Mobile responsive adjustments for screens smaller than 768px */
+@media (max-width: 768px) {
+  /* 1. Make the form occupy more screen width and stack vertically by default */
+  .form-container form {
+    width: 95%;       /* Increase from 70% to 95% */
+    padding: 0.75rem; /* Reduce padding slightly to save space */
+    gap: 8px;         /* Reduce gaps */
+    grid-template-columns: 1fr; /* Force 1-column layout always on mobile */
+  }
+
+  /* 2. Force the add task button to span the column and stretch to full width */
+  .form-container form .task-add-btn {
+    grid-column: 1;
+    width: 100%;
+    justify-self: center;
+  }
+
+  /* 3. Stack the Priority, Due Date, and Time fields vertically instead of 3-columns */
+  .desc-group-container {
+    grid-template-columns: 1fr; 
+    gap: 0.5rem;
+  }
+
+  /* 4. Reduce padding inside input boxes to keep it compact */
+  .input-details-container {
+    padding: 0.25rem 0.5rem;
+  }
+  
+  .task-name {
+    padding: 0.25rem 0.5rem;
+  }
 }

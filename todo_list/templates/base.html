@@ -25,23 +25,14 @@
       crossorigin="anonymous"
     ></script>
 
-    <title>{% block title %}To-Do List{% endblock %}</title>
+    <title>{% block title %}To-Do List Evolved{% endblock %}</title>
   </head>
   <body class="bg-light">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="{% url 'home' %}">To-Do List</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
+      <div class="title-bar">
+        <a class="navbar-brand" href="{% url 'home' %}"
+          ><span class="app-title">To-Do List</span> Evolved</a
         >
-          <span class="navbar-toggler-icon"></span>
-        </button>
       </div>
     </nav>
     <br />

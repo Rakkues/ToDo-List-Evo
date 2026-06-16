@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
-{% block title %}To-Do List{% endblock %}
+{% block title %}To-Do List Evolved{% endblock %}
 
 {% block content %}
   <div class="form-container">
     <form
-      class="shadow"
+      class="shadow-sm"
       method="post"
       enctype="multipart/form-data"
       action="{% url 'home' %}"
@@ -37,7 +37,13 @@
             <div class="select-container">
               <select id="modal_priority task-desc-input" name="priority">
                 {% for choice_val, choice_label in form.fields.priority.choices %}
-                  <option value="{{ choice_val }}">{{ choice_label }}</option>
+                  {% if choice_val == "Low" %}
+                    <option value="{{ choice_val }}" selected>
+                      {{ choice_label }}
+                    </option>
+                  {% else %}
+                    <option value="{{ choice_val }}">{{ choice_label }}</option>
+                  {% endif %}
                 {% endfor %}
               </select>
               <i class="fas fa-caret-down ms-1 select-caret"></i>
@@ -105,7 +111,9 @@
         </div>
       </div>
 
-      <button type="submit" class="btn btn-primary">Add Task</button>
+      <button type="submit" class="add-task-btn btn btn-primary">
+        Add Task
+      </button>
     </form>
   </div>
 
