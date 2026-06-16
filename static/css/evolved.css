@@ -1,0 +1,232 @@
+/*To-Do List Evolved CSS*/
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  padding: 0 0 100px 0;
+}
+
+.title-bar {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.app-title {
+  font-size: 3rem;
+  text-transform: uppercase;
+}
+
+.form-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 25px;
+}
+
+.form-container form {
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 1rem;
+  align-items: center;
+}
+
+.input-details-container {
+  background-color: #fafafa;
+  border: 1.5px solid #ccc;
+  box-shadow: inset #afafaf 0px 0px 3px;
+  color: darkgrey;
+  display: flex;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.add-task-btn {
+  height: 100%;
+  min-width: 200px;
+}
+
+.form-container form:has(.details-container.show),
+.form-container form:has(.details-container.collapsing) {
+  grid-template-columns: 1fr;
+}
+
+.form-container form:has(.details-container.show) .add-task-btn,
+.form-container form:has(.details-container.collapsing) .add-task-btn {
+  grid-column: 1;
+  justify-self: center;
+  width: 100%;
+}
+
+.task-name {
+  background-color: transparent;
+  border: none;
+  flex: 1;
+  min-width: 0;
+  padding: 0.5rem 1rem;
+}
+
+.task-name:focus {
+  outline: none;
+}
+
+.task-name::placeholder {
+  color: darkgrey;
+}
+
+.details-btn {
+  border: none;
+  color: darkgrey;
+  background-color: transparent;
+  flex-shrink: 0;
+  white-space: nowrap;
+  padding: 0.5rem 1rem;
+}
+
+.details-btn i {
+  transition: transform 0.2s ease;
+}
+
+.details-btn[aria-expanded="true"] i {
+  transform: rotate(180deg);
+}
+
+.desc-group-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.task-desc {
+  margin-bottom: 14px;
+}
+
+.task-desc label {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #555;
+  margin-bottom: 4px;
+}
+
+.task-desc input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1.5px solid #ccc;
+  border-radius: 7px;
+  font-size: 0.95rem;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+
+.select-container {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.task-desc select {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1.5px solid #ccc;
+  border-radius: 7px;
+  font-size: 0.95rem;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+}
+
+.task-desc select:focus {
+  outline: 1.5px solid black;
+  outline-offset: -1.5px;
+}
+
+.task-desc-input:focus {
+  outline: 1.5px solid black;
+  outline-offset: -1.5px;
+}
+
+.select-caret {
+  position: absolute;
+  right: 20px;
+  pointer-events: none;
+  top: 30%;
+}
+
+.task-desc input[type="datetime-local"]:focus {
+  outline: none;
+  border-color: #111;
+  box-shadow: none;
+}
+
+.task-desc textarea {
+  border: 1.5px solid #ccc;
+  border-radius: 7px;
+  width: 100%;
+  padding: 0.5rem;
+}
+
+.icon-btn:hover {
+  text-decoration: none;
+}
+
+.icon-btn .icon-hover {
+  display: none;
+}
+
+.icon-btn:hover .icon-hover {
+  display: block;
+}
+
+.icon-btn:hover .icon-default {
+  display: none;
+}
+
+.delete-btn {
+  color: red;
+}
+
+/* Mobile responsive adjustments for screens smaller than 768px */
+@media (max-width: 768px) {
+  /* 1. Make the form occupy more screen width and stack vertically by default */
+  .form-container form {
+    width: 95%;       /* Increase from 70% to 95% */
+    padding: 0.75rem; /* Reduce padding slightly to save space */
+    gap: 8px;         /* Reduce gaps */
+    grid-template-columns: 1fr; /* Force 1-column layout always on mobile */
+  }
+
+  /* 2. Force the add task button to span the column and stretch to full width */
+  .form-container form .task-add-btn {
+    grid-column: 1;
+    width: 100%;
+    justify-self: center;
+  }
+
+  /* 3. Stack the Priority, Due Date, and Time fields vertically instead of 3-columns */
+  .desc-group-container {
+    grid-template-columns: 1fr; 
+    gap: 0.5rem;
+  }
+
+  /* 4. Reduce padding inside input boxes to keep it compact */
+  .input-details-container {
+    padding: 0.25rem 0.5rem;
+  }
+  
+  .task-name {
+    padding: 0.25rem 0.5rem;
+  }
+}

@@ -128,8 +128,10 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-# Virtual environments
-venv/
-*.pyc
-db.sqlite3
-__pycache__/
+# Node files
+node_modules
+package.json
+package-lock.json
+
+# Prettier config
+.prettierrc
