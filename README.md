@@ -29,3 +29,11 @@ A simple To-Do List using Django
 4. Launch the local web server so you can open the application in your browser:
    ```bash
    python manage.py runserver
+
+## How to Use the Application
+
+Once the server is running and you open the app in your browser, here is how to use the new features:
+
+1. **Adding a Task**: Click the primary **"Add Task"** button. Fill out the task description, select a priority level, set an optional due date, choose the duration from the Days/Hours/Minutes dropdowns, and attach any files or images.
+2. **Searching & Filtering**: Use the filter bar at the top of the task list to look up specific keywords, view only "Pending" or "Completed" tasks, or view tasks by priority level.
+3. **Editing a Task**: Click the blue **Edit icon** on any task row to open the edit page. You can change any details, update the duration dropdowns, or change/clear your attached files. Click save to update the task.
