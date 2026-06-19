@@ -16,13 +16,16 @@ A simple To-Do List using Django
    cd ToDo-List-Evo
 
 2. Set Up the Virtual Environment by creating an isolated environment to keep the project files clean, and activate it:
-python -m venv venv
-venv\Scripts\activate
+   ```bash
+   python -m venv venv
+   venv\Scripts\activate
 
 3. Install Packages & Prepare the Database. Install Django and the required image tool (Pillow), then run the setup commands to build your database file cleanly:
-pip install django pillow
-python manage.py makemigrations todo_list
-python manage.py migrate --run-syncdb
+   ```bash
+   pip install django pillow
+   python manage.py makemigrations todo_list
+   python manage.py migrate --run-syncdb
 
 4. Launch the local web server so you can open the application in your browser:
-python manage.py runserver
+   ```bash
+   python manage.py runserver
